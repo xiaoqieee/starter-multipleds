@@ -36,6 +36,9 @@ public class MultipleDatasourceMethodAdvice implements MethodInterceptor {
             throw new MultipleDSException("Required configuration [multiple.datasource.base-service-package]");
         }
         String suffix = className.replace(basePackage + ".", "");
+        if (!suffix.contains(".")) {
+            return null;
+        }
         if (suffix.length() < 1 || !suffix.contains(".")) {
             throw new MultipleDSException("Invalid configuration [multiple.datasource.base-service-package] or Invalid service package path");
         }

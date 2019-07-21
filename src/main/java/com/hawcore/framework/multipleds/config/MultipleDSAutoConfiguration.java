@@ -2,6 +2,8 @@ package com.hawcore.framework.multipleds.config;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.baomidou.mybatisplus.MybatisConfiguration;
+import com.baomidou.mybatisplus.entity.GlobalConfiguration;
+import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.plugin.Interceptor;
@@ -93,7 +95,7 @@ public class MultipleDSAutoConfiguration {
 
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setJdbcTypeForNull(JdbcType.NULL);
-        configuration.setMapUnderscoreToCamelCase(true);
+        configuration.setMapUnderscoreToCamelCase(false);
         configuration.setCacheEnabled(false);
         sqlSessionFactory.setConfiguration(configuration);
         //PerformanceInterceptor(),OptimisticLockerInterceptor()
@@ -101,19 +103,21 @@ public class MultipleDSAutoConfiguration {
         sqlSessionFactory.setPlugins(new Interceptor[]{
                 paginationInterceptor()
         });
-//        sqlSessionFactory.setGlobalConfig(globalConfiguration());
+        sqlSessionFactory.setGlobalConfig(globalConfiguration());
         return sqlSessionFactory.getObject();
     }
 
- /*   @Bean
+   @Bean
     public GlobalConfiguration globalConfiguration() {
         GlobalConfiguration conf = new GlobalConfiguration(new LogicSqlInjector());
         conf.setLogicDeleteValue("-1");
         conf.setLogicNotDeleteValue("1");
         conf.setIdType(0);
-        conf.setMetaObjectHandler(new MyMetaObjectHandler());
-        conf.setDbColumnUnderline(true);
+//        conf.setMetaObjectHandler(new MyMetaObjectHandler());
+        conf.setDbColumnUnderline(false);
+
+
         conf.setRefresh(true);
         return conf;
-    }*/
+    }
 }
