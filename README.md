@@ -23,5 +23,7 @@ multiple.datasource.db2.url=jdbc:mysql://localhost:3306/test_db2?useUnicode=true
 multiple.datasource.db2.username=root
 multiple.datasource.db2.password=123456
 
-#注意：multiple.datasource.base-service-package和multiple.datasource.base-mapper-package分别配置业务服务的service层代码和mapper层代码的基础包名，
+# 注意：
+1、multiple.datasource.base-service-package和multiple.datasource.base-mapper-package分别配置业务服务的service层代码和mapper层代码的基础包名，
 即在此包下分别创建各个数据源对应的包来放各个数据源对应Service或者Mapper的class类代码，包名需要与multiple.datasource.service-list中定义的一致。
+2、对于数据源配置中，配置的key,例如 multiple.datasource.db.driver-class-name 中间的“db”,就是业务服务中引用的多个数据源代号，与multiple.datasource.service-list配置一致。
