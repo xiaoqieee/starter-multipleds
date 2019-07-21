@@ -6,6 +6,7 @@
     <artifactId>starter-multipleds</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>starter-multipleds</name>
+    <packaging>jar</packaging>
     <description>Demo project for Spring Boot</description>
 
 
@@ -35,6 +36,11 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-core</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generate</artifactId>
             <version>2.2.0</version>
         </dependency>
         <dependency>
@@ -80,13 +86,48 @@
         </dependency>
     </dependencies>
 
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+<!--            &lt;!&ndash; 要将源码放上去，需要加入这个插件 &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <artifactId>maven-source-plugin</artifactId>-->
+<!--                <version>2.1</version>-->
+<!--                <configuration>-->
+<!--                    <attach>true</attach>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>compile</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>jar</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
         </plugins>
+
     </build>
+
+
+    <distributionManagement>
+        <repository>
+            <!-- 这里的ID要和setting的id一致 -->
+            <id>ci-releases</id>
+            <name>releases</name>
+            <url>http://nexus.hawcore.com:9999/repository/maven-releases/</url>
+        </repository>
+        <!--这是打成快照版本的配置，如果不用这个snapshotRepository标签，打包失败，会报权限问题 -->
+        <snapshotRepository>
+            <id>ci-snapshots</id>
+            <name>snapshots</name>
+            <url>http://nexus.hawcore.com:9999/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>

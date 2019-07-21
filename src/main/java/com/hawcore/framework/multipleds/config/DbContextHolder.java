@@ -25,7 +25,7 @@ public class DbContextHolder {
     public static void setDbType(String serviceName) {
         contextHolder.set(serviceName);
         dsContextHolder.get().push(serviceName);
-        logger.debug("Switch datasource to :" + serviceName);
+        logger.debug("Switch datasource to: " + serviceName);
     }
 
     /**
@@ -42,9 +42,9 @@ public class DbContextHolder {
      */
     public static void reback() {
         String serviceName = dsContextHolder.get().pop();
-        logger.debug("Release datasource :" + serviceName);
+        logger.debug("Release datasource: " + serviceName);
         contextHolder.set(dsContextHolder.get().getTop());
-        logger.debug("Switch datasource back to:" + dsContextHolder.get().getTop());
+        logger.debug("Switch datasource back to: " + dsContextHolder.get().getTop());
     }
 
     /**
