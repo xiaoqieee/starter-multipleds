@@ -37,24 +37,6 @@ public class MultipleDSAutoConfiguration {
         return paginationInterceptor;
     }
 
-//    @Bean(name = "db1")
-//    @ConfigurationProperties(prefix = "spring.datasource.druid.db1")
-//    public DataSource db1() {
-//        return DruidDataSourceBuilder.create().build();
-//    }
-
-//    @Bean(name = "db2")
-//    @ConfigurationProperties(prefix = "spring.datasource.druid.db2")
-//    public DataSource db2() {
-//        return DruidDataSourceBuilder.create().build();
-//    }
-//
-//    @Bean(name = "db3")
-//    @ConfigurationProperties(prefix = "spring.datasource.druid.db3")
-//    public DataSource db3() {
-//        return DruidDataSourceBuilder.create().build();
-//    }
-
     /**
      * 动态数据源配置
      *
@@ -74,7 +56,7 @@ public class MultipleDSAutoConfiguration {
     public Map<Object, Object> buildTargetDataSources() throws Exception {
         String serviceListStr = ev.getProperty("multiple.datasource.service-list");
         if (null == serviceListStr || serviceListStr.length() < 1) {
-            throw new RuntimeException("使用多数据源必须配置:multiple.datasource.service-list");
+            throw new RuntimeException("Required configuration [multiple.datasource.service-list]");
         }
         String[] serviceNameArr = serviceListStr.split(",");
         Map<Object, Object> targetDataSources = new HashMap();
@@ -98,6 +80,9 @@ public class MultipleDSAutoConfiguration {
 
     private String getFirstServiceName() {
         String serviceListStr = ev.getProperty("multiple.datasource.service-list");
+        if (null == serviceListStr || serviceListStr.length() < 1) {
+            throw new RuntimeException("Required configuration [multiple.datasource.service-list]");
+        }
         return serviceListStr.split(",")[0];
     }
 
